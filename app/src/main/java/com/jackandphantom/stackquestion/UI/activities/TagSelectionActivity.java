@@ -30,16 +30,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * This activity calls the stackoverflow api for tag and list them
+ * user will select the 4 tags and then move to another tag
+ * also have the condition if they selected hwo many tag at a time
+ * it must be 4 tag selected by user.
+ * */
 public class TagSelectionActivity extends AppCompatActivity implements TagDataAdapter.OnClickListener {
 
    private Retrofit retrofit;
    private RecyclerView recyclerView;
+   //These are selected tags from the user on which they get the questions
    private String [] tags;
    private TagContainerLayout mTagContainerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        * When user don't have the internet connection then it will goes for offline Activity
+        * */
         if (!haveNetworkConnection()) {
             Intent intent = new Intent(TagSelectionActivity.this, OfflineActivity.class);
             startActivity(intent);
@@ -71,6 +81,10 @@ public class TagSelectionActivity extends AppCompatActivity implements TagDataAd
         callForTags(1);
     }
 
+    /*
+    * Using the network api for checking if user connected to either wifi or internet
+    * If it gets both are not working means user is offline
+    * */
     private boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
@@ -87,7 +101,10 @@ public class TagSelectionActivity extends AppCompatActivity implements TagDataAd
         }
         return haveConnectedWifi || haveConnectedMobile;
     }
-
+    /*
+    * This method is calling the stackoverflow api for the getting the tags then
+    * it will be listed on the reyclerview for selection the tags
+    * */
     private void callForTags(int page) {
         retrofit.create(StackApi.class).stackTagCall(page, "desc", "popular", "stackoverflow")
                 .enqueue(new Callback<TagResponse>() {
@@ -99,7 +116,6 @@ public class TagSelectionActivity extends AppCompatActivity implements TagDataAd
                             TagDataAdapter tagDataAdapter = new TagDataAdapter(list, TagSelectionActivity.this);
                             recyclerView.setAdapter(tagDataAdapter);
                             tagDataAdapter.setOnClickListener(TagSelectionActivity.this);
-                            Log.e("MY TAG", "TAG RESPONSE " + tagResponse);
                         }
                     }
 
@@ -110,6 +126,7 @@ public class TagSelectionActivity extends AppCompatActivity implements TagDataAd
                 });
     }
 
+    //This onclick method has condition on which if user has already selected the tag or not
     @Override
     public void onClick(String tag, int position) {
         //Searching for existing

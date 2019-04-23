@@ -29,8 +29,8 @@ public class OfflineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
-         recyclerView = findViewById(R.id.offline_list);
-         textView = findViewById(R.id.hide);
+        recyclerView = findViewById(R.id.offline_list);
+        textView = findViewById(R.id.hide);
         recyclerView.setLayoutManager(new LinearLayoutManager(OfflineActivity.this));
         appDatabase  = AppDatabase.getAppDatabase(OfflineActivity.this);
         new Work().execute();

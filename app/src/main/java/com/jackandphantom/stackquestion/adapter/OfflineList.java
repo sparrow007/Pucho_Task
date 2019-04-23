@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class OfflineList extends RecyclerView.Adapter<OfflineList.ViewHolder> {
-
     private List<OfflineData> offlineDataList;
     private LayoutInflater inflater;
     OnQuestionClickListener onQuestionClickListener;

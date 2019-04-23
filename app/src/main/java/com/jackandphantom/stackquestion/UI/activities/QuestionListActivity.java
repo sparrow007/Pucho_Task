@@ -24,15 +24,19 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+/*
+* Activity shows the list of questions on tab view which inflated viewpager
+* added other componenet also for changing the tag
+* Call the api regularly for different section.
+* */
 public class QuestionListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private String selectedTag;
-
     private ViewPager viewPager;
+    //Added the custom category which will the stackoverflow api for different section
     private String category[] = {"Activity", "Hot", "Week", "Month"};
 
     @Override
@@ -42,8 +46,8 @@ public class QuestionListActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
         adapter = new TabAdapter(getSupportFragmentManager());
         final String[] tags = getIntent().getStringArrayExtra("SELECTED_TAG");
         selectedTag = tags[0];
@@ -101,6 +105,7 @@ public class QuestionListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    //Added the three fragment in the viewpager
     private void setUpViewPager() {
         adapter.clearFragments();
         adapter.addFragment(new QuestionFragment(), category[0], selectedTag);
@@ -110,7 +115,8 @@ public class QuestionListActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
     }
 
-
+    //Added the condition when user have opend navigation then it should first closed that and then
+    //call the on backPressd().
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

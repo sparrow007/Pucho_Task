@@ -3,6 +3,8 @@ package com.jackandphantom.stackquestion.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Inject;
+
 public class SharedPreferenceUtil {
 
     private final String FIRSTTIMELOGIN = "FIRSTTIMELOGIN";
@@ -10,6 +12,7 @@ public class SharedPreferenceUtil {
 
     private SharedPreferences sharedPreferences;
 
+    @Inject
     public SharedPreferenceUtil(Context context) {
         final String SHARED_NAME = "STACKQUESTION";
         sharedPreferences = context.getSharedPreferences(SHARED_NAME, 0);

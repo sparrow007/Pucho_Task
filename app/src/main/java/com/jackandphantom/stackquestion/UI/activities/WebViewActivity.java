@@ -29,7 +29,6 @@ public class WebViewActivity extends AppCompatActivity {
         webView.loadUrl(url);
         dialog = ProgressDialog.show(WebViewActivity.this, "Loading", "Please wait...", true);
 
-
     }
 
     public class WebViewClient extends android.webkit.WebViewClient
@@ -39,32 +38,24 @@ public class WebViewActivity extends AppCompatActivity {
 
 
         WebViewClient(Context context) {
-
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
-            // TODO Auto-generated method stub
-
-            Log.e("MY TAG", "URL in start "+url);
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            // TODO Auto-generated method stub
             view.loadUrl(url);
             return true;
         }
         @Override
         public void onPageFinished(WebView view, String url) {
 
-            // TODO Auto-generated method stub
             if(!redirect){
                 loadingFinished = true;
             }
-
             if(loadingFinished && !redirect){
                 //HIDE LOADING IT HAS FINISHED
                 if(dialog.isShowing())

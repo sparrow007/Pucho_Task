@@ -27,7 +27,6 @@ import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button textView;
     private  WebView webView;
     private ProgressDialog dialog;
     private SharedPreferenceUtil sharedPreferenceUtil;
@@ -35,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //used to make the fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -45,12 +45,13 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.login);
+        Button textView = findViewById(R.id.login);
         relativeLayout = findViewById(R.id.layout);
         webView = findViewById(R.id.web);
 
-
-
+        /*
+        * Initialize the web View on clicking on the login button
+        * */
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +68,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    /*
+    * This class is web view client which loads the content from the url
+    * and has own listener which use to add the values to sharedpreference which will be using later
+    * help to manipulate the visible and non visible of login button
+    * after user logged in transfer into another activity
+    * */
     public class WebViewClient extends android.webkit.WebViewClient
     {
         private boolean loadingFinished = true;
@@ -79,8 +85,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
-            // TODO Auto-generated method stub
 
             loadingFinished = false;
             try {

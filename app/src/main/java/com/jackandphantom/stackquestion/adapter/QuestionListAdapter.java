@@ -24,6 +24,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/*
+* This is adapter for the question list on the reyclerview
+* */
 public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapter.ViewHolder> {
 
     private List<QuestionData> questionData;

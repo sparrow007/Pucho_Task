@@ -33,6 +33,10 @@ import com.jackandphantom.stackquestion.model.QuestionItemData;
 /**
  * A simple {@link Fragment} subclass.
  */
+/*
+* Shows the questions in the tab layout with different features
+* like saving and sharing the questions and also can view the full question
+* */
 public class QuestionFragment extends Fragment implements QuestionListAdapter.OnQuestionClickListener, QuestionListAdapter.OnQuestionLongClick {
 
 
@@ -44,7 +48,6 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
     public QuestionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,10 +72,13 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("MY TAG", "I AM IN THE RESUME");
         callForQuestion(1);
     }
 
+    /*
+    * Calls the api for getting the questions depends on the tag
+    * also select the different filter like asscending or descending order
+    * */
     private void callForQuestion(int page) {
         retrofit.create(StackApi.class).stackQuestionCall(page, "desc", type, tag,"stackoverflow",
                 "!9Z(-wwYGT").enqueue(new Callback<QuestionItemData>() {
@@ -95,6 +101,7 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
         });
     }
 
+    //This will show the whole question
     @Override
     public void onClick(String url) {
         Intent intent = new Intent(getActivity(), WebViewActivity.class);
@@ -102,6 +109,10 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
         startActivity(intent);
     }
 
+    /*
+    * This dialog show when user long click on the question then he can have two options
+    * either he can save the question or share it with his friends
+    * */
     @Override
     public void onLongClick(final String url, final String body, final String title) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -137,6 +148,7 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
         alertDialog.show();
     }
 
+    //Share other socail media apps
     private void shareTextUrl(String url) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
@@ -150,6 +162,10 @@ public class QuestionFragment extends Fragment implements QuestionListAdapter.On
         startActivity(Intent.createChooser(share, "Share link!"));
     }
 
+    /**
+     * This method used to save the question in form of title and body
+     * so he can view if he don't have the internet.
+     */
     private void saveQuestion(String title, String body) {
         final OfflineData offlineData = new OfflineData();
         offlineData.setQuestionBody(body);

@@ -8,7 +8,10 @@ import android.view.View;
 import com.jackandphantom.stackquestion.R;
 
 import androidx.recyclerview.widget.RecyclerView;
-
+/*
+* This is custom item decoration for the reyclerview
+* this class will create the line divider in the recyclerview
+* */
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 

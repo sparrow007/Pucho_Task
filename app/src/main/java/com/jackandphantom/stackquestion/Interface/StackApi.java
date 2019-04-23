@@ -8,6 +8,12 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+
+/**
+ * It has all the api required get the questions , tag and auth
+ * different api has different values so each one has the model class
+ * each api has different parameter need to made the api
+ * */
 public interface StackApi {
 
     @GET("oauth/dialog")
